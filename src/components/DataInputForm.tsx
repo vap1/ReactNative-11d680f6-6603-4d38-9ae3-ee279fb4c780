@@ -1,85 +1,67 @@
 
 import React, { useState } from 'react';
-import { View, TextInput, Button, Alert } from 'react-native';
-import { User } from '../types/UserTypes';
-import { DataInputRequest } from '../apis/DataInputApi';
+import { View, TextInput, Button } from 'react-native';
+import { DataInputRequest } from '../types/UserTypes';
+import { DataInputApi } from '../apis/DataInputApi';
 
-type DataInputFormProps = {
-  onSubmit: (data: DataInputRequest) => void;
-};
+interface DataInputFormProps {
+  onSuccess: () => void;
+}
 
-const DataInputForm: React.FC<DataInputFormProps> = ({ onSubmit }) => {
-  const [user, setUser] = useState<User>({
-    userId: '',
-    firstName: '',
-    lastName: '',
-    email: '',
-    phone: '',
-    address: '',
-  });
+const DataInputForm: React.FC<DataInputFormProps> = ({ onSuccess }) => {
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
+  const [address, setAddress] = useState('');
 
-  const handleInputChange = (field: keyof User, value: string) => {
-    setUser((prevUser) => ({
-      ...prevUser,
-      [field]: value,
-    }));
-  };
+  const handleDataInput = async () => {
+    const requestData: DataInputRequest = {
+      user: {
+        firstName,
+        lastName,
+        email,
+        phone,
+        address,
+      },
+    };
 
-  const handleSubmit = () => {
-    if (validateForm()) {
-      const data: DataInputRequest = {
-        user: user,
-      };
-      onSubmit(data);
-    } else {
-      Alert.alert('Error', 'Please fill in all the required fields');
+    try {
+      await DataInputApi.dataInput(requestData);
+      onSuccess();
+    } catch (error) {
+      console.error('Error occurred during data input:', error);
     }
-  };
-
-  const validateForm = () => {
-    return (
-      user.userId !== '' &&
-      user.firstName !== '' &&
-      user.lastName !== '' &&
-      user.email !== '' &&
-      user.phone !== '' &&
-      user.address !== ''
-    );
   };
 
   return (
     <View>
       <TextInput
-        placeholder="User ID"
-        value={user.userId}
-        onChangeText={(value) => handleInputChange('userId', value)}
-      />
-      <TextInput
         placeholder="First Name"
-        value={user.firstName}
-        onChangeText={(value) => handleInputChange('firstName', value)}
+        value={firstName}
+        onChangeText={setFirstName}
       />
       <TextInput
         placeholder="Last Name"
-        value={user.lastName}
-        onChangeText={(value) => handleInputChange('lastName', value)}
+        value={lastName}
+        onChangeText={setLastName}
       />
       <TextInput
         placeholder="Email"
-        value={user.email}
-        onChangeText={(value) => handleInputChange('email', value)}
+        value={email}
+        onChangeText={setEmail}
       />
       <TextInput
         placeholder="Phone"
-        value={user.phone}
-        onChangeText={(value) => handleInputChange('phone', value)}
+        value={phone}
+        onChangeText={setPhone}
       />
       <TextInput
         placeholder="Address"
-        value={user.address}
-        onChangeText={(value) => handleInputChange('address', value)}
+        value={address}
+        onChangeText={setAddress}
       />
-      <Button title="Submit" onPress={handleSubmit} />
+      <Button title="Submit" onPress={handleDataInput} />
     </View>
   );
 };
