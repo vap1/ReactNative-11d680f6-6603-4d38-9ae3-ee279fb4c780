@@ -13,7 +13,7 @@ export const getDataDisplay = async (): Promise<SearchResponse> => {
 
     const data = await response.json();
     return data as SearchResponse;
-  } catch (error) {
-    throw new Error(`Failed to fetch data display: ${error.message}`);
+  } catch (error: any) {
+    throw new Error('Failed to fetch data display');
   }
 };
