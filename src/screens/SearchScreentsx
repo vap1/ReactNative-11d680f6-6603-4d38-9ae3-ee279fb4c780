@@ -3,12 +3,10 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, Button } from 'react-native';
 import { SearchRequest, SearchResponse } from '../types/SearchTypes';
 import { search } from '../apis/SearchApi';
-import { User } from '../types/UserTypes';
-import SearchResults from '../components/SearchResults';
 
 const SearchScreen: React.FC = () => {
   const [keyword, setKeyword] = useState('');
-  const [searchResults, setSearchResults] = useState<User[]>([]);
+  const [searchResults, setSearchResults] = useState<SearchResponse[]>([]);
 
   const handleSearch = async () => {
     try {
@@ -16,7 +14,7 @@ const SearchScreen: React.FC = () => {
         keyword: keyword,
       };
 
-      const response: SearchResponse = await search(request);
+      const response = await search(request);
       setSearchResults(response.searchResults);
     } catch (error) {
       console.error('Error searching:', error);
@@ -32,7 +30,14 @@ const SearchScreen: React.FC = () => {
         onChangeText={setKeyword}
       />
       <Button title="Search" onPress={handleSearch} />
-      <SearchResults searchResults={searchResults} />
+      {searchResults.map((result) => (
+        <View key={result.userId}>
+          <Text>{result.firstName} {result.lastName}</Text>
+          <Text>Email: {result.email}</Text>
+          <Text>Phone: {result.phone}</Text>
+          <Text>Address: {result.address}</Text>
+        </View>
+      ))}
     </View>
   );
 };
