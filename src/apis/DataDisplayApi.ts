@@ -1,9 +1,5 @@
 
-import { User } from '../types/UserTypes';
-
-interface DataDisplayResponse {
-  users: User[];
-}
+import { DataDisplayRequest, DataDisplayResponse, User } from '../types/UserTypes';
 
 export const getDataDisplay = async (): Promise<DataDisplayResponse> => {
   try {
@@ -15,8 +11,11 @@ export const getDataDisplay = async (): Promise<DataDisplayResponse> => {
       throw new Error('Failed to fetch data display');
     }
 
-    const data = await response.json();
-    return data as DataDisplayResponse;
+    const data: User[] = await response.json();
+
+    return {
+      users: data,
+    };
   } catch (error) {
     throw new Error(`Failed to fetch data display: ${error.message}`);
   }
