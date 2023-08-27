@@ -4,9 +4,9 @@ import { View, TextInput, Button, Alert } from 'react-native';
 import { User } from '../types/UserTypes';
 import { DataInputRequest } from '../apis/DataInputApi';
 
-interface DataInputFormProps {
+type DataInputFormProps = {
   onSubmit: (data: DataInputRequest) => void;
-}
+};
 
 const DataInputForm: React.FC<DataInputFormProps> = ({ onSubmit }) => {
   const [user, setUser] = useState<User>({
@@ -18,10 +18,10 @@ const DataInputForm: React.FC<DataInputFormProps> = ({ onSubmit }) => {
     address: '',
   });
 
-  const handleInputChange = (key: keyof User, value: string) => {
+  const handleInputChange = (field: keyof User, value: string) => {
     setUser((prevUser) => ({
       ...prevUser,
-      [key]: value,
+      [field]: value,
     }));
   };
 
@@ -32,7 +32,7 @@ const DataInputForm: React.FC<DataInputFormProps> = ({ onSubmit }) => {
       };
       onSubmit(data);
     } else {
-      Alert.alert('Error', 'Please fill in all the required fields.');
+      Alert.alert('Error', 'Please fill in all the required fields');
     }
   };
 
