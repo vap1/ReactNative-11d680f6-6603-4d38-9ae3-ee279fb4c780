@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { View, TextInput, Button, Alert } from 'react-native';
 import { DataInputRequest } from '../types/UserTypes';
-import { postDataInput } from '../apis/DataInputApi';
+import { DataInputApi } from '../apis/DataInputApi';
 
 const DataInputScreen: React.FC = () => {
   const [firstName, setFirstName] = useState('');
@@ -14,7 +14,6 @@ const DataInputScreen: React.FC = () => {
   const handleDataInput = async () => {
     const requestData: DataInputRequest = {
       user: {
-        userId: '', // You can generate a unique userId here if needed
         firstName,
         lastName,
         email,
@@ -24,18 +23,11 @@ const DataInputScreen: React.FC = () => {
     };
 
     try {
-      await postDataInput(requestData);
-      // Handle success or show a confirmation message
+      const response = await DataInputApi.dataInput(requestData);
+      // Handle success response
       Alert.alert('Success', 'Data input successful');
-
-      // Reset form fields
-      setFirstName('');
-      setLastName('');
-      setEmail('');
-      setPhone('');
-      setAddress('');
     } catch (error) {
-      // Handle error or show an error message
+      // Handle error response
       Alert.alert('Error', 'Failed to input data');
     }
   };
