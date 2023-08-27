@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { View, TextInput, Button } from 'react-native';
 import { DataInputRequest } from '../types/UserTypes';
-import { DataInputApi } from '../apis/DataInputApi';
+import { postDataInput } from '../apis/DataInputApi';
 
 interface DataInputFormProps {
   onSuccess: () => void;
@@ -27,7 +27,7 @@ const DataInputForm: React.FC<DataInputFormProps> = ({ onSuccess }) => {
     };
 
     try {
-      await DataInputApi.dataInput(requestData);
+      await postDataInput(requestData);
       onSuccess();
     } catch (error) {
       console.error('Error occurred during data input:', error);
