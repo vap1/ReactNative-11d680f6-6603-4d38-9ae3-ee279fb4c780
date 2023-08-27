@@ -1,22 +1,18 @@
 
-import { DataDisplayRequest, DataDisplayResponse, User } from '../types/UserTypes';
+import axios from 'axios';
+import { User } from '../types/UserTypes';
+
+export interface DataDisplayRequest {}
+
+export interface DataDisplayResponse {
+  users: User[];
+}
 
 export const getDataDisplay = async (): Promise<DataDisplayResponse> => {
   try {
-    const response = await fetch('/data-display', {
-      method: 'GET',
-    });
-
-    if (!response.ok) {
-      throw new Error('Failed to fetch data display');
-    }
-
-    const data: User[] = await response.json();
-
-    return {
-      users: data,
-    };
-  } catch (error: any) {
-    throw new Error(`Failed to fetch data display: ${error}`);
+    const response = await axios.get<DataDisplayResponse>('/data-display');
+    return response.data;
+  } catch (error) {
+    throw new Error('Failed to fetch data display');
   }
 };
