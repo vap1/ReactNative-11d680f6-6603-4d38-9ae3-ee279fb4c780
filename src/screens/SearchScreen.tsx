@@ -30,12 +30,14 @@ const SearchScreen: React.FC = () => {
         onChangeText={setKeyword}
       />
       <Button title="Search" onPress={handleSearch} />
-      {searchResults.map((result) => (
-        <View key={result.userId}>
-          <Text>{result.firstName} {result.lastName}</Text>
-          <Text>Email: {result.email}</Text>
-          <Text>Phone: {result.phone}</Text>
-          <Text>Address: {result.address}</Text>
+      {searchResults.map((result, index) => (
+        <View key={index}>
+          <Text>{result.userId}</Text>
+          <Text>{result.firstName}</Text>
+          <Text>{result.lastName}</Text>
+          <Text>{result.email}</Text>
+          <Text>{result.phone}</Text>
+          <Text>{result.address}</Text>
         </View>
       ))}
     </View>
