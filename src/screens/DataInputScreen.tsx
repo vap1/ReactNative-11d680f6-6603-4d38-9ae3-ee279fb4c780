@@ -14,6 +14,7 @@ const DataInputScreen: React.FC = () => {
   const handleDataInput = async () => {
     const requestData: DataInputRequest = {
       user: {
+        userId: '', // You can generate a unique userId here if needed
         firstName,
         lastName,
         email,
@@ -24,9 +25,9 @@ const DataInputScreen: React.FC = () => {
 
     try {
       await dataInputApi(requestData);
-      // Handle success or show confirmation message
+      // Handle success or show a confirmation message
     } catch (error) {
-      // Handle error or show error message
+      // Handle error or show an error message
     }
   };
 
