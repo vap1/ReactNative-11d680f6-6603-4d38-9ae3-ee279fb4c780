@@ -1,6 +1,7 @@
 
 import axios from 'axios';
 import { SearchRequest, SearchResponse } from '../types/SearchTypes';
+import { User } from '../types/UserTypes';
 
 const BASE_URL = 'http://your-api-base-url.com'; // Replace with your actual API base URL
 
