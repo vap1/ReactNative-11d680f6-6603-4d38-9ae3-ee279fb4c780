@@ -1,29 +1,39 @@
 
-export type User = {
+interface User {
   userId: string;
   firstName: string;
   lastName: string;
   email: string;
   phone: string;
   address: string;
-};
+}
 
-export type DataInputRequest = {
+interface DataInputRequest {
   user: User;
-};
+}
 
-export type DataInputResponse = void;
+interface DataInputResponse {}
 
-export type SearchRequest = {
+interface SearchRequest {
   keyword: string;
-};
+}
 
-export type SearchResponse = {
+interface SearchResponse {
   searchResults: User[];
-};
+}
 
-export type DataDisplayRequest = void;
+interface DataDisplayRequest {}
 
-export type DataDisplayResponse = {
+interface DataDisplayResponse {
   users: User[];
+}
+
+export type {
+  User,
+  DataInputRequest,
+  DataInputResponse,
+  SearchRequest,
+  SearchResponse,
+  DataDisplayRequest,
+  DataDisplayResponse,
 };
