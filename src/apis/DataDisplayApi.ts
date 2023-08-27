@@ -8,12 +8,12 @@ export const getDataDisplay = async (): Promise<SearchResponse> => {
     });
 
     if (!response.ok) {
-      throw new Error('Failed to fetch data');
+      throw new Error('Failed to fetch data display');
     }
 
     const data = await response.json();
     return data as SearchResponse;
   } catch (error) {
-    throw new Error('Failed to fetch data');
+    throw new Error(`Failed to fetch data display: ${error.message}`);
   }
 };
