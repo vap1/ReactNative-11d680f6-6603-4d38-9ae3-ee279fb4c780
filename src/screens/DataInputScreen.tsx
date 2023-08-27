@@ -1,8 +1,8 @@
 
 import React, { useState } from 'react';
-import { View, TextInput, Button, Alert } from 'react-native';
-import { DataInputRequest } from '../types/UserTypes';
+import { View, TextInput, Button } from 'react-native';
 import { DataInputApi } from '../apis/DataInputApi';
+import { User } from '../types/UserTypes';
 
 const DataInputScreen: React.FC = () => {
   const [firstName, setFirstName] = useState('');
@@ -12,23 +12,22 @@ const DataInputScreen: React.FC = () => {
   const [address, setAddress] = useState('');
 
   const handleDataInput = async () => {
-    const requestData: DataInputRequest = {
-      user: {
-        firstName,
-        lastName,
-        email,
-        phone,
-        address,
-      },
+    const user: User = {
+      userId: '', // You can generate a unique ID here if needed
+      firstName,
+      lastName,
+      email,
+      phone,
+      address,
     };
 
     try {
-      const response = await DataInputApi.dataInput(requestData);
-      // Handle success response
-      Alert.alert('Success', 'Data input successful');
+      const response = await DataInputApi.dataInput({ user });
+      console.log('Data input successful:', response);
+      // Add any success handling logic here
     } catch (error) {
-      // Handle error response
-      Alert.alert('Error', 'Failed to input data');
+      console.error('Data input failed:', error);
+      // Add any error handling logic here
     }
   };
 
