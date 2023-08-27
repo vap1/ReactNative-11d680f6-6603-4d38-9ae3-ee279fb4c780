@@ -1,15 +1,7 @@
 
-import { User } from '../types/UserTypes';
+import { DataInputRequest, DataInputResponse } from '../types/UserTypes';
 
-export interface DataInputRequest {
-  user: User;
-}
-
-export interface DataInputResponse {
-  // Define the response structure here
-}
-
-export async function dataInputApi(request: DataInputRequest): Promise<DataInputResponse> {
+export const postDataInput = async (request: DataInputRequest): Promise<DataInputResponse> => {
   try {
     const response = await fetch('/data-input', {
       method: 'POST',
@@ -20,12 +12,12 @@ export async function dataInputApi(request: DataInputRequest): Promise<DataInput
     });
 
     if (!response.ok) {
-      throw new Error('API request failed');
+      throw new Error('Failed to submit data input');
     }
 
     const data: DataInputResponse = await response.json();
     return data;
   } catch (error) {
-    throw new Error('API request failed');
+    throw new Error('Failed to submit data input');
   }
-}
+};
