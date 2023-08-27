@@ -5,9 +5,6 @@ export const search = async (keyword: string): Promise<SearchResponse> => {
   try {
     const response = await fetch(`/search/${keyword}`, {
       method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
     });
 
     if (!response.ok) {
