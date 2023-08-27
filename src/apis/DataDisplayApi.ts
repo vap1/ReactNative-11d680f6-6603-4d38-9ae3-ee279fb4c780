@@ -1,7 +1,11 @@
 
-import { SearchResponse } from '../types/SearchApiTypes';
+import { User } from '../types/UserTypes';
 
-export const getDataDisplay = async (): Promise<SearchResponse> => {
+interface DataDisplayResponse {
+  users: User[];
+}
+
+export const getDataDisplay = async (): Promise<DataDisplayResponse> => {
   try {
     const response = await fetch('/data-display', {
       method: 'GET',
@@ -12,7 +16,7 @@ export const getDataDisplay = async (): Promise<SearchResponse> => {
     }
 
     const data = await response.json();
-    return data as SearchResponse;
+    return data as DataDisplayResponse;
   } catch (error) {
     throw new Error(`Failed to fetch data display: ${error.message}`);
   }
