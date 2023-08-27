@@ -1,5 +1,5 @@
 
-import { SearchRequest, SearchResponse } from '../types/SearchApiTypes';
+import { SearchResponse } from '../types/SearchApiTypes';
 
 export const getDataDisplay = async (): Promise<SearchResponse> => {
   try {
@@ -14,6 +14,6 @@ export const getDataDisplay = async (): Promise<SearchResponse> => {
     const data = await response.json();
     return data as SearchResponse;
   } catch (error) {
-    throw new Error(`Failed to fetch data display: ${error.message}`);
+    throw new Error(`Error in getDataDisplay API: ${error.message}`);
   }
 };
