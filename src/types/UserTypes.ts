@@ -8,4 +8,32 @@ interface User {
   address: string;
 }
 
-export type { User };
+interface DataInputRequest {
+  user: User;
+}
+
+interface DataInputResponse {}
+
+interface SearchRequest {
+  keyword: string;
+}
+
+interface SearchResponse {
+  searchResults: User[];
+}
+
+interface DataDisplayRequest {}
+
+interface DataDisplayResponse {
+  users: User[];
+}
+
+export type {
+  User,
+  DataInputRequest,
+  DataInputResponse,
+  SearchRequest,
+  SearchResponse,
+  DataDisplayRequest,
+  DataDisplayResponse,
+};
