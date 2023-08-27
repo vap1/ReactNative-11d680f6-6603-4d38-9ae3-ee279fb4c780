@@ -23,11 +23,10 @@ const DataInputScreen: React.FC = () => {
         },
       };
 
-      // Make API call to submit data input
       const response = await DataInputApi.dataInput(requestData);
 
       // Handle success response
-      Alert.alert('Success', 'Data input submitted successfully');
+      Alert.alert('Success', 'Data input successful');
 
       // Reset form fields
       setFirstName('');
@@ -37,7 +36,7 @@ const DataInputScreen: React.FC = () => {
       setAddress('');
     } catch (error) {
       // Handle error response
-      Alert.alert('Error', 'Failed to submit data input');
+      Alert.alert('Error', 'Failed to input data');
     }
   };
 
