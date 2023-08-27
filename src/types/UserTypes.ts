@@ -28,7 +28,7 @@ interface DataDisplayResponse {
   users: User[];
 }
 
-export type {
+export {
   User,
   DataInputRequest,
   DataInputResponse,
