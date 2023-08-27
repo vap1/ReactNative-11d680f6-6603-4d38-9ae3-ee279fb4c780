@@ -1,16 +1,19 @@
 
-import axios from 'axios';
-import { User } from '../types/UserTypes';
-import { DataDisplayRequest, DataDisplayResponse } from '../types/DataDisplayApiTypes';
+import { SearchRequest, SearchResponse } from '../types/SearchApiTypes';
 
-const BASE_URL = 'http://your-api-base-url.com'; // Replace with your actual API base URL
-
-export const getDataDisplay = async (): Promise<User[]> => {
+export const getDataDisplay = async (): Promise<SearchResponse> => {
   try {
-    const response = await axios.get<DataDisplayResponse>(`${BASE_URL}/data-display`);
-    return response.data.users;
+    const response = await fetch('/data-display', {
+      method: 'GET',
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to fetch data display');
+    }
+
+    const data = await response.json();
+    return data as SearchResponse;
   } catch (error) {
-    console.error('Error fetching data display:', error);
-    throw error;
+    throw new Error(`Failed to fetch data display: ${error.message}`);
   }
 };
