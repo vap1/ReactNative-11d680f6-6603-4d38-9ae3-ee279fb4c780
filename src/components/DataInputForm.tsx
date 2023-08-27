@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { View, TextInput, Button } from 'react-native';
 import { User } from '../types/UserTypes';
-import { DataInputApi } from '../apis/DataInputApi';
+import { postDataInput } from '../apis/DataInputApi';
 
 interface DataInputFormProps {
   onFormSubmit: () => void;
@@ -27,7 +27,7 @@ const DataInputForm: React.FC<DataInputFormProps> = ({ onFormSubmit }) => {
 
   const handleSubmit = async () => {
     try {
-      await DataInputApi.submitDataInput({ user });
+      await postDataInput({ user });
       onFormSubmit();
     } catch (error) {
       console.error('Error submitting data input:', error);
