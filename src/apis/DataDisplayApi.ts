@@ -16,7 +16,7 @@ export const getDataDisplay = async (): Promise<DataDisplayResponse> => {
     return {
       users: data,
     };
-  } catch (error) {
-    throw new Error(`Failed to fetch data display: ${error.message}`);
+  } catch (error: any) {
+    throw new Error(`Failed to fetch data display: ${error}`);
   }
 };
