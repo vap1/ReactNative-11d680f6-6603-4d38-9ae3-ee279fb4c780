@@ -6,7 +6,7 @@ import { AppNavigator } from './navigation/AppNavigator';
 
 const Stack = createStackNavigator();
 
-const App: React.FC = () => {
+const App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
