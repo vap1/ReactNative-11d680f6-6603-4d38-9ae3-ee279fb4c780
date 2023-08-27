@@ -27,7 +27,7 @@ const DataInputForm: React.FC<DataInputFormProps> = ({ onFormSubmit }) => {
 
   const handleSubmit = async () => {
     try {
-      await DataInputApi.dataInput({ user });
+      await DataInputApi.submitDataInput({ user });
       onFormSubmit();
     } catch (error) {
       console.error('Error submitting data input:', error);
