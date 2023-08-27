@@ -1,67 +1,70 @@
 
 import React, { useState } from 'react';
 import { View, TextInput, Button } from 'react-native';
-import { DataInputRequest } from '../types/UserTypes';
-import { postDataInput } from '../apis/DataInputApi';
+import { User } from '../types/UserTypes';
+import { DataInputRequest } from '../apis/DataInputApi';
 
 interface DataInputFormProps {
-  onSuccess: () => void;
+  onSubmit: (data: DataInputRequest) => void;
 }
 
-const DataInputForm: React.FC<DataInputFormProps> = ({ onSuccess }) => {
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [email, setEmail] = useState('');
-  const [phone, setPhone] = useState('');
-  const [address, setAddress] = useState('');
+const DataInputForm: React.FC<DataInputFormProps> = ({ onSubmit }) => {
+  const [user, setUser] = useState<User>({
+    userId: '',
+    firstName: '',
+    lastName: '',
+    email: '',
+    phone: '',
+    address: '',
+  });
 
-  const handleDataInput = async () => {
-    const requestData: DataInputRequest = {
-      user: {
-        firstName,
-        lastName,
-        email,
-        phone,
-        address,
-      },
+  const handleInputChange = (key: keyof User, value: string) => {
+    setUser((prevUser) => ({
+      ...prevUser,
+      [key]: value,
+    }));
+  };
+
+  const handleSubmit = () => {
+    const data: DataInputRequest = {
+      user: user,
     };
-
-    try {
-      await postDataInput(requestData);
-      onSuccess();
-    } catch (error) {
-      console.error('Error occurred during data input:', error);
-    }
+    onSubmit(data);
   };
 
   return (
     <View>
       <TextInput
+        placeholder="User ID"
+        value={user.userId}
+        onChangeText={(value) => handleInputChange('userId', value)}
+      />
+      <TextInput
         placeholder="First Name"
-        value={firstName}
-        onChangeText={setFirstName}
+        value={user.firstName}
+        onChangeText={(value) => handleInputChange('firstName', value)}
       />
       <TextInput
         placeholder="Last Name"
-        value={lastName}
-        onChangeText={setLastName}
+        value={user.lastName}
+        onChangeText={(value) => handleInputChange('lastName', value)}
       />
       <TextInput
         placeholder="Email"
-        value={email}
-        onChangeText={setEmail}
+        value={user.email}
+        onChangeText={(value) => handleInputChange('email', value)}
       />
       <TextInput
         placeholder="Phone"
-        value={phone}
-        onChangeText={setPhone}
+        value={user.phone}
+        onChangeText={(value) => handleInputChange('phone', value)}
       />
       <TextInput
         placeholder="Address"
-        value={address}
-        onChangeText={setAddress}
+        value={user.address}
+        onChangeText={(value) => handleInputChange('address', value)}
       />
-      <Button title="Submit" onPress={handleDataInput} />
+      <Button title="Submit" onPress={handleSubmit} />
     </View>
   );
 };
